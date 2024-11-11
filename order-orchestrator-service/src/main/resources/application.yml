@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: order-orchestrator-service
+  cloud:
+    function:
+      definition: processor
+    stream:
+      bindings:
+        processor-in-0:
+          destination: order-created
+        processor-out-0:
+          destination: order-updated
+      kafka:
+        binder:
+          replication-factor: 1
+services:
+  endpoints:
+    inventory: http://localhost:8001
+    payment: http://localhost:8004
+    orders: http://localhost:8003
+server:
+  port: 8002
